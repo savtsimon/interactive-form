@@ -156,6 +156,7 @@ form.addEventListener("submit", e => {
         emailInput.parentElement.lastElementChild.textContent = "Email address must be formatted correctly"
     }
     addRemoveValidation(activitiesField, activityValidator, e)
+    activitiesField.classList.add("activities")
     if (paymentSelection[1].selected) {
         addRemoveValidation(ccInput.parentElement, ccNumValidator, e)
         addRemoveValidation(zipInput.parentElement, zipCodeValidator, e)
@@ -193,9 +194,19 @@ function cvvValidator() {
     return /^\d{3}$/.test(cvvInput.value)
 }
 
-// Real time error messaging for the zipcode input
-zipInput.addEventListener("keyup", e => {
-
+// Real time error messaging for the credit card number, zip code, and cvv number input
+// Add event listeners to the inputs and run the validation functions when there is a new input
+ccInput.addEventListener("input", e => {
+    let ccNum = e.target
+    addRemoveValidation(ccNum.parentElement, ccNumValidator, e)
+})
+zipInput.addEventListener("input", e => {
+    let zip = e.target
+    addRemoveValidation(zip.parentElement, zipCodeValidator, e)
+})
+cvvInput.addEventListener("input", e => {
+    let cvv = e.target
+    addRemoveValidation(cvv.parentElement, cvvValidator, e)
 })
 
 
